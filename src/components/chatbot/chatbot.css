@@ -1,0 +1,358 @@
+/* src/components/Chatbot/Chatbot.css */
+
+/* --- Add these new styles --- */
+
+toggles-container {
+  gap: 1.5rem; /* Give more space for the clear button */
+}
+
+.toggle-wrapper label {
+  font-size: 0.8rem;
+}
+
+.clear-chat-button {
+  background: none;
+  border: 1px solid #555;
+  color: var(--secondary-text-color);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  margin-left: auto; /* Pushes it to the right */
+}
+
+.clear-chat-button:hover {
+  background-color: #c44;
+  color: white;
+  border-color: #c44;
+}
+
+/* Redesigned Switch for cleaner look */
+.switch {
+  width: 40px;
+  height: 22px;
+  background-color: #4a4a4a;
+  border-radius: 11px;
+}
+.switch::after {
+  width: 16px;
+  height: 16px;
+  top: 3px;
+  left: 3px;
+}
+.switch.on::after {
+  transform: translateX(18px);
+}
+
+/* Microphone Button */
+.mic-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid #444;
+  background-color: #333;
+  color: var(--primary-text-color);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mic-button:hover {
+  border-color: var(--accent-color);
+}
+
+.mic-button.listening {
+  background-color: #c44;
+  color: white;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(204, 68, 68, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(204, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(204, 68, 68, 0);
+  }
+}
+
+/* Disclaimer text */
+.disclaimer span {
+  color: #ffcc80; /* A warning color */
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.message-container.user {
+  align-self: flex-end;
+}
+
+.message-container.bot {
+  align-self: flex-start;
+}
+
+.correction-box {
+  background-color: rgba(30, 90, 40, 0.4);
+  border-left: 3px solid #4caf50;
+  padding: 0.5rem 0.75rem;
+  margin-top: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #e0e0e0;
+  line-height: 1.4;
+}
+
+.correction-box strong {
+  color: #4caf50;
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.toggles-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--secondary-text-color);
+}
+
+.disclaimer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--secondary-text-color);
+  min-height: 1.2em; /* Prevents layout shift when text appears/disappears */
+  margin-bottom: 1rem;
+}
+
+/* --- Keep all your existing styles below this line --- */
+/* ... (paste all the previous CSS from the last step here) ... */
+
+.chatbot {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-grow: 1;
+}
+
+.chat-window {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Custom scrollbar for a modern look */
+.chat-window::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-window::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat-window::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.message {
+  padding: 0.75rem 1rem;
+  border-radius: 18px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message.user {
+  background-color: var(--accent-color);
+  color: #121212;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.message.bot {
+  background-color: #363636;
+  color: var(--primary-text-color);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.message.error {
+  background-color: #5c2b2b;
+  border: 1px solid #ff5555;
+}
+
+.loading-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--secondary-text-color);
+}
+
+.bottom-section {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* OLD .context-toggle IS REPLACED BY .toggles-container and .toggle-wrapper */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+  background-color: #4a4a4a;
+  border-radius: 13px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.switch span {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.switch.on {
+  background-color: var(--accent-color);
+}
+
+.switch.off span {
+  left: 25px;
+}
+.switch.on span {
+  left: 8px;
+}
+
+.switch::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.switch.on::after {
+  transform: translateX(24px);
+}
+
+.chat-input-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chat-input-form input {
+  flex-grow: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 20px;
+  border: 1px solid #444;
+  background-color: #2a2a2a;
+  color: var(--primary-text-color);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.chat-input-form input:focus {
+  border-color: var(--accent-color);
+}
+
+.chat-input-form input:disabled {
+  background-color: #222;
+  cursor: not-allowed;
+}
+
+.chat-input-form button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--accent-color);
+  color: #121212;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.chat-input-form button:hover:not(:disabled) {
+  background-color: #c89eff;
+}
+
+.chat-input-form button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.chat-input-form button:disabled {
+  background-color: #444;
+  cursor: not-allowed;
+}
+
+/* src/components/chatbot/Chatbot.css */
+
+/* --- ADD THIS NEW STYLE BLOCK AT THE END OF THE FILE --- */
+
+.play-audio-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--primary-text-color);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.play-audio-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: var(--accent-color);
+}
+
+.play-audio-button svg {
+  stroke: var(--primary-text-color);
+}
